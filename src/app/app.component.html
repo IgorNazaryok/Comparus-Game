@@ -1,0 +1,57 @@
+
+<div class="container-fluid">
+  <div class="row-8 align-items-center justify-content-center">
+    <ng-template appRef></ng-template>
+    <form  class="card" [formGroup]='form' (ngSubmit)="startGame()">
+
+      <div class="card-header">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-sm-3 text-center">
+            <button type="submit" 
+            class="btn btn-primary" 
+            [disabled]="isGameRun || form.invalid"
+            >Start</button>
+          </div>
+  
+          <label for="inputPassword" class="col-sm-2 col-form-label"><h3>Time:</h3></label>
+          <div class="col-sm-3">
+            <input 
+            [class.is-invalid]="form.get('time')?.errors"  
+            class="form-control" 
+            id="time"
+            type="number" 
+            min="500" 
+            max="2000" 
+            formControlName="time">
+          </div>
+  
+          <div class="col-sm-4">
+            <div class="text-center">
+              <h3>Score</h3>
+              <h5>
+                <span class="mr-10">User: {{scoreUser}}</span>
+                <span>PC: {{scorePC}}</span>
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="form.get('time')?.errors" class="row text-center text-danger">
+          <div class="col">
+            <small>Enter a value from 500 to 2000 ms</small>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="row align-items-center justify-content-center">
+        <div class="col-10 d-flex playingField">
+            <div class="cube"
+            *ngFor="let cube of cubes"
+            [ngStyle]="{background: cube.color}"
+            (click)="onClick(cube)"
+            ></div>
+        </div>
+      </div>
+    </form >
+  </div>
+</div>
